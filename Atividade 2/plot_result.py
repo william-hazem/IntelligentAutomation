@@ -66,15 +66,14 @@ def plot_sim_result(t, sol, poses, path=None, save_anim = False, goal=[0, 0]):
         plt.plot(x, yr, '--')
 
     [plt.subplot(3,2,i).grid(True) for i in range(1, 7)]
-    plt.grid(True)
+
     plt.subplots_adjust(hspace=0.45)  # Adjust the value as needed
     
     # plt.figure()
     # Plot the initial and final robot position
     pose = array([x, y, phi]).T
-    print(pose.shape)
-    robot_anim = RobotAnimation(x[0], y[0], phi[0], pose, goal)
+    robot_anim = RobotAnimation(x[0], y[0], phi[0], pose, goal, 'Robot Tracking Moving Object With Desired Distance')
     
     plt.show()
     # saving to m4 using ffmpeg writer 
-    if (save_anim): robot_anim.save_gif('robot_animation.gif', fps=10)
+    if (save_anim): robot_anim.save_gif('robot_animation.gif', fps=10)    

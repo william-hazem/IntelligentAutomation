@@ -4,7 +4,7 @@ from matplotlib.animation import FuncAnimation
 import imageio # save frames as gif
 import os
 class RobotAnimation:
-    def __init__(self, x, y, orientation, trajectory, goal):
+    def __init__(self, x, y, orientation, trajectory, goal, title):
         temp = trajectory[:,2]
         temp = np.pi - temp
         # trajectory[:,2] = temp
@@ -38,8 +38,8 @@ class RobotAnimation:
 
         self.origin = plt.Circle((x, y), 0.2*k, color='red', alpha=0.5, zorder=0)  # Set alpha for transparency
         self.ax.add_patch(self.origin)
-        self.ax.set_title('Go to Goal Robot Trajectory')  # Set animation title
-
+        self.ax.set_title(title)  # Set animation title
+        self.ax.set_axis_off()
         self.frames = []
 
         self.animation = FuncAnimation(self.fig, self.update, frames=len(trajectory), interval=100)
@@ -70,7 +70,7 @@ class RobotAnimation:
 
         return self.line, self.robot, self.goal_circle
 
-    def save_gif(self, filename, fps=10):
+    def save_gif(self, filename, fps=30):
         imageio.mimsave(uri=filename, ims=self.frames, fps=fps)
 
 # Example usage:

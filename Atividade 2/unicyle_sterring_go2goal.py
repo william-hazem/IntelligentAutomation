@@ -9,9 +9,7 @@ from scipy.integrate import solve_ivp, trapezoid, cumulative_trapezoid
 import numpy as np
 from numpy import cos, sin, array, pi, arctan
 from matplotlib import pyplot as plt
-import matplotlib.animation as animation
 from animate_robot import RobotAnimation
-import PIL
 
 def drive_steering(t, prev_state, gamma, h, k):
     "Implements Closed-Loop Control Law Equations"
@@ -125,7 +123,7 @@ def plot_sim_result(sol):
     # Plot the initial and final robot position
     pose = array([x, y, phi]).T
     print(pose.shape)
-    robot_anim = RobotAnimation(x[0], y[0], phi[0], pose, (0, 0))
+    robot_anim = RobotAnimation(x[0], y[0], phi[0], pose, array([0, 0]), title="")
     
     plt.show()
     # saving to m4 using ffmpeg writer 
@@ -136,12 +134,12 @@ initial_pose = [-1, 40, 3*pi/4]
 initial_state = [10, 0.0075, 0.01]
 
 initial_state = coord2states([-2, 0, 0])
-initial_state = [5*np.sqrt(2), -pi, -pi/4]
+initial_state = [1*np.sqrt(2), pi, -pi/4]
 
 # Closed Loop parameters
 gamma = 1
-h = 6
-k = 6
+h = 50
+k = 50
 
 l1, l2 = check_stability(gamma, h, k)
 sigma = max(l1, l2)          
